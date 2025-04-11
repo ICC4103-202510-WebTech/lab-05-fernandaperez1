@@ -1,9 +1,33 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+u1 = User.create!(email: "sofia@example.com", first_name: "Sofía", last_name: "Pérez")
+u2 = User.create!(email: "mateo@example.com", first_name: "Mateo", last_name: "Ramírez")
+u3 = User.create!(email: "valentina@example.com", first_name: "Valentina", last_name: "González")
+u4 = User.create!(email: "benjamin@example.com", first_name: "Benjamín", last_name: "Muñoz")
+u5 = User.create!(email: "juan@example.com", first_name: "juan", last_name: "Castillo")
+u6 = User.create!(email: "lucas@example.com", first_name: "Lucas", last_name: "Navarro")
+u7 = User.create!(email: "isidora@example.com", first_name: "Isidora", last_name: "Torres")
+u8 = User.create!(email: "martin@example.com", first_name: "Martín", last_name: "Fuentes")
+u9 = User.create!(email: "amalia@example.com", first_name: "Amalia", last_name: "Cáceres")
+u10 = User.create!(email: "tomás@example.com", first_name: "Tomás", last_name: "Alarcón")
+
+c1 = Chat.create!(sender_id: u1.id, receiver_id: u2.id)
+c2 = Chat.create!(sender_id: u3.id, receiver_id: u4.id)
+c3 = Chat.create!(sender_id: u5.id, receiver_id: u6.id)
+c4 = Chat.create!(sender_id: u7.id, receiver_id: u8.id)
+c5 = Chat.create!(sender_id: u9.id, receiver_id: u10.id)
+c6 = Chat.create!(sender_id: u2.id, receiver_id: u5.id)
+c7 = Chat.create!(sender_id: u6.id, receiver_id: u1.id)
+c8 = Chat.create!(sender_id: u10.id, receiver_id: u3.id)
+c9 = Chat.create!(sender_id: u4.id, receiver_id: u7.id)
+c10 = Chat.create!(sender_id: u8.id, receiver_id: u9.id)
+
+Message.create!(chat_id: c1.id, user_id: u1.id, body: "Hola Mateo, como estas?")
+Message.create!(chat_id: c1.id, user_id: u2.id, body: "Hola Sofía! bien y tu?")
+Message.create!(chat_id: c2.id, user_id: u3.id, body: "Hiciste el trabajo?")
+Message.create!(chat_id: c3.id, user_id: u5.id, body: "Hola Lucas")
+Message.create!(chat_id: c4.id, user_id: u7.id, body: "Martín, necesito tu ayuda con algo")
+Message.create!(chat_id: c5.id, user_id: u9.id, body: "Tomás, tienes tiempo para hablar?")
+Message.create!(chat_id: c6.id, user_id: u2.id, body: "juan, quieres salir a caminar?")
+Message.create!(chat_id: c7.id, user_id: u6.id, body: "Sofía, me encantó tu presentación")
+Message.create!(chat_id: c8.id, user_id: u10.id, body: "Valentina, tenemos que hablar.")
+Message.create!(chat_id: c9.id, user_id: u4.id, body: "Hola Isidora")
+Message.create!(chat_id: c10.id, user_id: u8.id, body: "Amalia, te mandé los documentos.")
