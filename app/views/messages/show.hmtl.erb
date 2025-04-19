@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-info text-white">
+      <h2 class="mb-0"><i class="fas fa-envelope-open-text"></i> Detalle del Mensaje</h2>
+    </div>
+    <div class="card-body">
+      <p class="mb-2">
+        <strong>ID del Mensaje:</strong> <%= @message.id %>
+      </p>
+      <p class="mb-2">
+        <strong>ID del Chat:</strong> <%= @message.chat_id %>
+      </p>
+      <p class="mb-2">
+        <strong>ID del Usuario:</strong> <%= @message.user_id %>
+      </p>
+      <p class="mb-2">
+        <strong>Contenido:</strong><br>
+        <span class="d-block mt-1 ps-3"><%= simple_format(@message.body) %></span>
+      </p>
+
+      <%= link_to messages_path, class: 'btn btn-outline-secondary mt-3' do %>
+        <i class="fas fa-arrow-left"></i> Volver a Mensajes
+      <% end %>
+    </div>
+  </div>
+</div>
