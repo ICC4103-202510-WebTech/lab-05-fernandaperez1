@@ -1,0 +1,35 @@
+<%= form_with(model: @user, local: true, html: { class: "user-form" }) do |f| %>
+  <% if @user.errors.any? %>
+    <section class="form-errors">
+      <h3>Ups, se encontraron <%= pluralize(@user.errors.count, "error") %>:</h3>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <fieldset>
+    <legend>Información de usuario</legend>
+
+    <div class="form-group">
+      <%= f.label :first_name, "Nombre" %>
+      <%= f.text_field :first_name, class: "input-text" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :last_name, "Apellido" %>
+      <%= f.text_field :last_name, class: "input-text" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :email, "Correo electrónico" %>
+      <%= f.email_field :email, class: "input-text" %>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit "Crear cuenta", class: "submit-btn" %>
+  </div>
+<% end %>

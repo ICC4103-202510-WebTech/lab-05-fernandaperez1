@@ -1,8 +1,38 @@
-class ChatsController<ApplicationController
+class ChatsController < ApplicationController
+    before_action :set_chat, only: :show
+    before_action :load_users, only: %i[new create]
+  
     def index
-        @chats=Chat.all
+      @chats = Chat.all
     end
-    def show
-        @chat=Chat.find(params[:id])
+  
+    def show; end
+  
+    def new
+      @chat = Chat.new
     end
-end
+  
+    def create
+      @chat = Chat.new(chat_params)
+      if @chat.save
+        redirect_to @chat, notice: 'El chat fue creado exitosamente.'
+      else
+        render :new
+      end
+    end
+  
+    private
+  
+    def set_chat
+      @chat = Chat.find(params[:id])
+    end
+  
+    def load_users
+      @users = User.all
+    end
+  
+    def chat_params
+      params.require(:chat).permit(:sender_id, :receiver_id)
+    end
+  end
+  

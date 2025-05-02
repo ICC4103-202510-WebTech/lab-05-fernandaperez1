@@ -1,0 +1,35 @@
+<%= form_with(model: @message, local: true, html: { class: "message-form" }) do |f| %>
+  <% if @message.errors.any? %>
+    <section class="form-errors">
+      <h3>Se encontraron <%= pluralize(@message.errors.count, "error") %> al intentar enviar el mensaje:</h3>
+      <ul>
+        <% @message.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <fieldset>
+    <legend>Nuevo mensaje</legend>
+
+    <div class="form-group">
+      <%= f.label :chat_id, "Conversación" %>
+      <%= f.select :chat_id, @chats.map { |chat| ["Chat ##{chat.id}", chat.id] }, prompt: 'Elige una conversación', class: "select-input" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :user_id, "Remitente" %>
+      <%= f.select :user_id, @users.map { |user| ["#{user.first_name} #{user.last_name}", user.id] }, prompt: 'Elige al remitente', class: "select-input" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :body, "Contenido del mensaje" %>
+      <%= f.text_area :body, class: "textarea-input", rows: 4, placeholder: "Escribe tu mensaje aquí..." %>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <%= f.submit "Enviar mensaje", class: "submit-btn" %>
+  </div>
+<% end %>
