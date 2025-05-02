@@ -6,7 +6,9 @@ class MessagesController < ApplicationController
     @messages = Message.all
   end
 
-  def show; end
+  def show
+    @message = Message.find(params[:id])
+  end
 
   def new
     @message = Message.new
