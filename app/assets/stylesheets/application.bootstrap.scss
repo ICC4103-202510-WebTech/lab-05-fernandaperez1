@@ -56,3 +56,42 @@ a {
 a:hover {
   color: var(--splatoon-pink);
 }
+
+.btn-splatoon-primary {
+  background: #9f17ff;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #ff39ef;
+    color: #fff;
+  }
+}
+
+.btn-splatoon-info {
+  background: #28d4ea;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #ff39ef;
+    color: #fff;
+  }
+}
+
+.btn-splatoon-success {
+  background: #22e500;
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #ff39ef;
+    color: #fff;
+  }
+}
