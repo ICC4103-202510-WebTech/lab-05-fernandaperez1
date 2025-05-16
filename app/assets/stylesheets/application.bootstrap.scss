@@ -1,2 +1,58 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --splatoon-green: #39FF14;
+  --splatoon-pink: #FF1CB9;
+  --splatoon-purple: #7B2CBF;
+  --splatoon-bg: #1A1A1A;
+  --splatoon-text: #FFFFFF;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive, monospace;
+  background-color: var(--splatoon-bg);
+  color: var(--splatoon-text);
+}
+
+.btn-primary {
+  background-color: var(--splatoon-green);
+  border-color: var(--splatoon-green);
+  color: var(--splatoon-bg);
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: var(--splatoon-pink);
+  border-color: var(--splatoon-pink);
+}
+
+.btn-warning {
+  background-color: var(--splatoon-purple);
+  border-color: var(--splatoon-purple);
+  color: white;
+}
+
+.btn-outline-secondary {
+  border-color: var(--splatoon-pink);
+  color: var(--splatoon-pink);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--splatoon-pink);
+  color: white;
+}
+
+h1, h2, h3 {
+  color: var(--splatoon-pink);
+}
+
+a {
+  color: var(--splatoon-green);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--splatoon-pink);
+}

@@ -1,13 +1,14 @@
 <div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="display-5">Lista de Chats</h1>
+    <%= link_to "Nuevo Chat", new_chat_path, class: "btn btn-primary" %>
   </div>
 
   <div class="table-responsive">
     <table class="table table-hover align-middle">
       <thead class="table-dark">
         <tr>
-          <th scope="col">Chat</th>
+          <th scope="col">Chat ID</th>
           <th scope="col">Remitente</th>
           <th scope="col">Receptor</th>
           <th scope="col">Acciones</th>
@@ -17,11 +18,27 @@
         <% @chats.each do |chat| %>
           <tr>
             <td><%= chat.id %></td>
-            <td><%= chat.sender_id %></td>
-            <td><%= chat.receiver_id %></td>
             <td>
-              <%= link_to chat_path(chat), class: 'btn btn-outline-primary btn-sm' do %>
-                <i class="fas fa-comments"></i> Abrir
+              <% if chat.sender.present? %>
+                <%= chat.sender.first_name %> <%= chat.sender.last_name %>
+              <% else %>
+                Usuario <%= chat.sender_id %>
+              <% end %>
+            </td>
+            <td>
+              <% if chat.receiver.present? %>
+                <%= chat.receiver.first_name %> <%= chat.receiver.last_name %>
+              <% else %>
+                Usuario <%= chat.receiver_id %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to chat_path(chat), class: 'btn btn-outline-primary btn-sm me-2' do %>
+                <i class="fas fa-comments"></i> Ver
+              <% end %>
+
+              <%= link_to edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm' do %>
+                <i class="fas fa-edit"></i> Editar
               <% end %>
             </td>
           </tr>
@@ -30,4 +47,3 @@
     </table>
   </div>
 </div>
-<%= link_to 'Back to Chats', chats_path %>

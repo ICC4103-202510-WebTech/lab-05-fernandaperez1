@@ -1,27 +1,41 @@
 <div class="container mt-5">
   <div class="card shadow-sm">
-    <div class="card-header bg-info text-white">
-      <h2 class="mb-0"><i class="fas fa-envelope-open-text"></i> Detalle del Mensaje</h2>
+    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0"><i class="fas fa-envelope-open-text me-2"></i>Detalle del Mensaje</h2>
+      <%= link_to edit_message_path(@message), class: 'btn btn-warning btn-sm' do %>
+        <i class="fas fa-edit"></i> Editar
+      <% end %>
     </div>
+
     <div class="card-body">
-      <p class="mb-2">
-        <strong>ID del Mensaje:</strong> <%= @message.id %>
+      <p><strong>ID del Mensaje:</strong> <%= @message.id %></p>
+      <p>
+        <strong>Usuario:</strong>
+        <% if @message.user.present? %>
+          <%= @message.user.first_name %> <%= @message.user.last_name %>
+        <% else %>
+          Usuario no asignado
+        <% end %>
+        (ID: <%= @message.user_id %>)
       </p>
-      <p class="mb-2">
-        <strong>ID del Chat:</strong> <%= @message.chat_id %>
+      <p>
+        <strong>Chat:</strong>
+        <%= link_to "Chat ##{@message.chat.id}", chat_path(@message.chat), class: "text-decoration-none" %>
       </p>
-      <p class="mb-2">
-        <strong>ID del Usuario:</strong> <%= @message.user_id %>
-      </p>
-      <p class="mb-2">
+      <p>
         <strong>Contenido:</strong><br>
-        <span class="d-block mt-1 ps-3"><%= simple_format(@message.body) %></span>
+        <span class="d-block mt-1 ps-3 border-start border-3 border-info">
+          <%= simple_format(@message.body) %>
+        </span>
       </p>
 
-      <%= link_to messages_path, class: 'btn btn-outline-secondary mt-3' do %>
-        <i class="fas fa-arrow-left"></i> Volver a Mensajes
-      <% end %>
+      <div class="mt-4 d-flex justify-content-between">
+        <%= link_to messages_path, class: 'btn btn-outline-secondary' do %>
+          <i class="fas fa-arrow-left"></i> Volver a Mensajes
+        <% end %>
+        
+        <%= link_to "Agregar nuevo Mensaje", new_message_path, class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
 </div>
-<%= link_to "Agregar nuevo Mensaje", new_message_path, class: "btn btn-primary" %>

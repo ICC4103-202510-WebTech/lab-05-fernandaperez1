@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-warning text-dark">
+      <h2 class="mb-0"><i class="fas fa-edit me-2"></i>Editar Mensaje</h2>
+    </div>
+
+    <div class="card-body">
+      <% if @message.errors.any? %>
+        <div class="alert alert-danger">
+          <h5 class="alert-heading">Se encontraron los siguientes errores:</h5>
+          <ul class="mb-0">
+            <% @message.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @message, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :body, "Contenido del Mensaje", class: "form-label" %>
+          <%= f.text_area :body, class: "form-control", rows: 5 %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :user_id, "ID del Usuario", class: "form-label" %>
+          <%= f.number_field :user_id, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :chat_id, "ID del Chat", class: "form-label" %>
+          <%= f.number_field :chat_id, class: "form-control" %>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <%= f.submit "Actualizar Mensaje", class: "btn btn-success" %>
+          <%= link_to "Cancelar", message_path(@message), class: "btn btn-outline-secondary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

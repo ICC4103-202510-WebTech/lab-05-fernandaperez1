@@ -1,26 +1,43 @@
 <div class="container mt-5">
   <div class="card shadow-sm">
-    <div class="card-header bg-success text-white">
-      <h2 class="mb-0"><i class="fas fa-user"></i> Detalles del Usuario</h2>
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0"><i class="fas fa-user me-2"></i> Detalles del Usuario</h2>
+      <%= link_to users_path, class: 'btn btn-outline-light btn-sm' do %>
+        <i class="fas fa-arrow-left"></i> Volver
+      <% end %>
     </div>
     <div class="card-body">
-      <p class="mb-2">
-        <strong>ID del Usuario:</strong> <%= @user.id %>
-      </p>
-      <p class="mb-2">
-        <strong>Nombre:</strong> <%= @user.first_name %>
-      </p>
-      <p class="mb-2">
-        <strong>Apellido:</strong> <%= @user.last_name %>
-      </p>
-      <p class="mb-2">
-        <strong>Correo Electrónico:</strong> <%= mail_to @user.email %>
-      </p>
+      <p><strong>ID del Usuario:</strong> <%= @user.id %></p>
+      <p><strong>Nombre:</strong> <%= @user.first_name %></p>
+      <p><strong>Apellido:</strong> <%= @user.last_name %></p>
+      <p><strong>Correo Electrónico:</strong> <%= mail_to @user.email %></p>
 
-      <%= link_to users_path, class: 'btn btn-outline-secondary mt-3' do %>
-        <i class="fas fa-arrow-left"></i> Volver a Usuarios
+      <hr>
+
+      <h4>Chats enviados</h4>
+      <% if @user.sent_chats.any? %>
+        <ul>
+          <% @user.sent_chats.each do |chat| %>
+            <li><%= link_to "Chat ##{chat.id}", chat_path(chat) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p><em>No hay chats enviados.</em></p>
       <% end %>
+
+      <h4>Mensajes</h4>
+      <% if @user.messages.any? %>
+        <ul>
+          <% @user.messages.each do |msg| %>
+            <li><%= truncate(msg.body, length: 80) %> <small>
+          <% end %>
+        </ul>
+      <% else %>
+        <p><em>No hay mensajes.</em></p>
+      <% end %>
+
+      <%= link_to "Editar Usuario", edit_user_path(@user), class: "btn btn-primary mt-3" %>
+      <%= link_to "Agregar nuevo Usuario", new_user_path, class: "btn btn-success mt-3 ms-2" %>
     </div>
   </div>
 </div>
-<%= link_to "Agregar nuevo Usuario", new_user_path, class: "btn btn-primary" %>
