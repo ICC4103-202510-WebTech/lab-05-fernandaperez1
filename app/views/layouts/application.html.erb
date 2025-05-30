@@ -29,8 +29,6 @@
           <i class="fas fa-home"></i> Mi App
         <% end %>
 
-        </button>
-
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
             <%= link_to 'Usuarios', users_path, class: 'nav-link' %>
@@ -38,6 +36,21 @@
             <%= link_to 'Chats', chats_path, class: 'nav-link' %>
           </div>
         </div>
+
+        <% if user_signed_in? %>
+          <div class="d-flex align-items-center ms-3">
+            <%= link_to "#", class: 'btn btn-outline-green' do %>
+              <i class="fas fa-user me-1"></i><%=current_user.first_name%>
+            <% end %>
+
+
+            <%= button_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary', form: { style: "display: inline;" } %>
+        <% else %>
+          <div class="d-flex ms-3">
+            <%= link_to 'Iniciar sesión', new_user_session_path, class: 'btn btn-outline-primary me-2' %>
+            <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-outline-success' %>
+          </div>
+        <% end %>
       </div>
     </nav>
     <%= yield %>

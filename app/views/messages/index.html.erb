@@ -20,20 +20,34 @@
           <tr>
             <td><%= message.id %></td>
             <td>
-              <% if message.user.present? %>
-                <%= message.user.first_name %> <%= message.user.last_name %>
+              <% if message.sender.present? %>
+                <%= message.sender.first_name %> <%= message.sender.last_name %>
               <% else %>
-                Usuario desconocido
+                Remitente desconocido
               <% end %>
             </td>
             <td><%= message.chat&.id || "Sin chat" %></td>
             <td><%= truncate(message.body, length: 60) %></td>
             <td>
-              <%= link_to message_path(message), class: 'btn btn-outline-primary btn-sm me-1' do %>
-                <i class="fas fa-eye"></i> Ver
+              <% if can? :read, message %>
+                <%= link_to message_path(message), class: 'btn btn-outline-primary btn-sm me-1' do %>
+                  <i class="fas fa-eye"></i> Ver
+                <% end %>
               <% end %>
-              <%= link_to edit_message_path(message), class: 'btn btn-outline-secondary btn-sm' do %>
-                <i class="fas fa-edit"></i> Editar
+
+              <% if can? :edit, message %>
+                <%= link_to edit_message_path(message), class: 'btn btn-outline-secondary btn-sm me-1' do %>
+                  <i class="fas fa-edit"></i> Editar
+                <% end %>
+              <% end %>
+
+              <% if can? :destroy, message %>
+                <%= link_to message_path(message),
+                            method: :delete,
+                            data: { confirm: "¿Estás seguro?" },
+                            class: 'btn btn-outline-danger btn-sm' do %>
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                <% end %>
               <% end %>
             </td>
           </tr>

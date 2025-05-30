@@ -1,9 +1,11 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: :show
   before_action :load_associations, only: %i[new create]
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   def index
-    @messages = Message.all
+    @messages = Message.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
   end
 
   def show
@@ -12,12 +14,14 @@ class MessagesController < ApplicationController
 
   def new
     @message = Message.new
+    @chats = current_user.chats
+    @users = User.where.not(id: current_user.id)
   end
 
   def create
-    @message = Message.new(message_params)
+    @message = current_user.sent_messages.build(message_params)
     if @message.save
-      redirect_to @message, notice: 'El mensaje fue enviado correctamente.'
+      redirect_to messages_path, notice: "Mensaje enviado correctamente"
     else
       render :new
     end
@@ -43,11 +47,13 @@ class MessagesController < ApplicationController
   end
 
   def load_associations
-    @chats = Chat.all
-    @users = User.all
+    @chats = current_user.chats
+    @users = User.where.not(id: current_user.id)
   end
 
+
   def message_params
-    params.require(:message).permit(:body, :user_id, :chat_id)
+    params.require(:message).permit(:chat_id, :recipient_id, :body)
   end
+
 end

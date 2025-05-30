@@ -33,12 +33,16 @@
               <% end %>
             </td>
             <td>
-              <%= link_to chat_path(chat), class: 'btn btn-outline-primary btn-sm me-2' do %>
-                <i class="fas fa-comments"></i> Ver
+              <% if can? :read, chat %>
+                <%= link_to chat_path(chat), class: 'btn btn-outline-primary btn-sm me-2' do %>
+                  <i class="fas fa-comments"></i> Ver
+                <% end %>
               <% end %>
 
-              <%= link_to edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm' do %>
-                <i class="fas fa-edit"></i> Editar
+              <% if can? :edit, chat %>
+                <%= link_to edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm' do %>
+                  <i class="fas fa-edit"></i> Editar
+                <% end %>
               <% end %>
             </td>
           </tr>

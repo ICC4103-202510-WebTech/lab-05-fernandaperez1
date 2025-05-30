@@ -14,11 +14,6 @@
     <legend>Crear nuevo chat</legend>
 
     <div class="form-group">
-      <%= f.label :sender_id, "Remitente" %>
-      <%= f.select :sender_id, @users.map { |user| ["#{user.first_name} #{user.last_name}", user.id] }, prompt: 'Elige un remitente', class: "select-input" %>
-    </div>
-
-    <div class="form-group">
       <%= f.label :receiver_id, "Destinatario" %>
       <%= f.select :receiver_id, @users.map { |user| ["#{user.first_name} #{user.last_name}", user.id] }, prompt: 'Elige un destinatario', class: "select-input" %>
     </div>

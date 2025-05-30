@@ -44,6 +44,17 @@ body {
   color: white;
 }
 
+.btn-outline-green {
+  border-color: var(--splatoon-green);
+  color: var(--splatoon-green);
+  align-self: center;
+}
+
+.btn-outline-green:hover {
+  background-color: var(--splatoon-green);
+  color: white;
+}
+
 h1, h2, h3 {
   color: var(--splatoon-pink);
 }
@@ -95,3 +106,14 @@ a:hover {
     color: #fff;
   }
 }
+
+.btn-pink {
+  background-color: #ff77aa;
+  color: white;
+}
+
+.btn-pink:hover {
+  background-color: #ff5f99;
+  color: white;
+}
+
