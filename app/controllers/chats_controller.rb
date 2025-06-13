@@ -5,7 +5,11 @@ class ChatsController < ApplicationController
     load_and_authorize_resource
   
     def index
-      @chats = Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+      if current_user.admin?
+        @chats = Chat.all
+      else
+        @chats = Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+      end
     end
 
   
@@ -40,6 +44,14 @@ class ChatsController < ApplicationController
         render :edit
       end
     end
+
+    def destroy
+      @chat = Chat.find(params[:id])
+      authorize! :destroy, @chat
+      @chat.destroy
+      redirect_to chats_path, notice: "Chat eliminado"
+    end
+
   
     private
   

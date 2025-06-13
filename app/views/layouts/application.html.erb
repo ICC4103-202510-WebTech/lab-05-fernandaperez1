@@ -31,9 +31,16 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
-            <%= link_to 'Usuarios', users_path, class: 'nav-link' %>
-            <%= link_to 'Mensajes', messages_path, class: 'nav-link' %>
-            <%= link_to 'Chats', chats_path, class: 'nav-link' %>
+            <% if user_signed_in? %>
+              <% if current_user.admin? %>
+                <%= link_to 'Usuarios', users_path, class: 'nav-link' %>
+                <%= link_to 'Mensajes', messages_path, class: 'nav-link' %>
+                <%= link_to 'Chats', chats_path, class: 'nav-link' %>
+              <% else %>
+                <%= link_to 'Mi Inbox', chats_path, class: 'btn btn-outline-purple' %>
+                <%= link_to 'Mis Mensajes', messages_path, class: 'btn btn-outline-purple' %>
+              <% end %>
+            <% end %>
           </div>
         </div>
 

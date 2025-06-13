@@ -11,8 +11,8 @@
       <p><strong>ID del Mensaje:</strong> <%= @message.id %></p>
       <p>
         <strong>Usuario:</strong>
-        <% if @message.user.present? %>
-          <%= @message.user.first_name %> <%= @message.user.last_name %>
+        <% if @message.sender.present? %>
+          <%= @message.sender.first_name %> <%= @message.sender.last_name %>
         <% else %>
           Usuario no asignado
         <% end %>

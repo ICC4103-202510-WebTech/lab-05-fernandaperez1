@@ -2,7 +2,7 @@ class Chat < ApplicationRecord
   belongs_to :sender, class_name: 'User', foreign_key: :sender_id
   belongs_to :receiver, class_name: 'User', foreign_key: :receiver_id
   has_many :messages, dependent: :destroy
-  has_many :chat_users
+  has_many :chat_users, dependent: :destroy
   has_many :users, through: :chat_users
 
   after_create :add_users_to_chat
@@ -14,6 +14,10 @@ class Chat < ApplicationRecord
     chat_users.create(user_id: sender_id)
     chat_users.create(user_id: receiver_id)
   end
+  def other_user(current_user)
+    users.where.not(id: current_user.id).first
+  end
+
   private
 
   def distinct_participants
@@ -30,4 +34,5 @@ class Chat < ApplicationRecord
     else
     end
   end
+
 end

@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates_presence_of :email, :first_name, :last_name
@@ -11,9 +9,12 @@ class User < ApplicationRecord
   def messages
     Message.where("sender_id = ? OR recipient_id = ?", id, id)
   end
+  def admin?
+    self.admin
+  end
   has_many :sent_chats,     class_name: 'Chat', foreign_key: :sender_id,   dependent: :destroy
   has_many :received_chats, class_name: 'Chat', foreign_key: :receiver_id, dependent: :destroy
   validates :email, presence: true, uniqueness: true
-  has_many :chat_users
+  has_many :chat_users, dependent: :destroy
   has_many :chats, through: :chat_users
 end

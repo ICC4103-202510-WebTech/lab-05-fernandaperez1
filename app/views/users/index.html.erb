@@ -25,19 +25,23 @@
             <td><%= mail_to user.email %></td>
             <td><%= pluralize(user.messages.count, "mensaje") %></td>
             <td>
+            <div class="d-flex flex-row flex-nowrap gap-2">
               <% if can?(:read, user) %>
-                <%= link_to user_path(user), class: 'btn btn-outline-primary btn-sm me-2' do %>
+                <%= link_to user_path(user), class: 'btn btn-outline-primary btn-sm mt-2' do %>
                   <i class="fas fa-eye"></i> Ver
                 <% end %>
               <% end %>
-
-
-              <% if current_user == user %>
-                <%= link_to edit_user_path(user), class: 'btn btn-outline-secondary btn-sm' do %>
+              <% if can?(:edit, user) %>
+                <%= link_to edit_user_path(user), class: 'btn btn-outline-secondary btn-sm mt-2' do %>
                   <i class="fas fa-edit"></i> Editar
                 <% end %>
               <% end %>
-
+              <% if can?(:destroy, user) && current_user != user %>
+                <%= button_to user_path(user), method: :delete, data: { confirm: "¿Estás segura de que quieres eliminar a este usuario?" }, class: 'btn btn-outline-danger btn-sm mt-2' do %>
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                <% end %>
+              <% end %>
+            </div>
             </td>
           </tr>
         <% end %>

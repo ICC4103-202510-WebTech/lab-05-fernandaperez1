@@ -30,7 +30,7 @@
       <ul class="list-group">
         <% @chat.messages.each do |msg| %>
           <li class="list-group-item">
-            <strong><%= msg.user.first_name %> <%= msg.user.last_name %>:</strong> <%= msg.body %>
+            <strong><%= msg.sender.first_name %> <%= msg.sender.last_name %>:</strong> <%= msg.body %>
           </li>
         <% end %>
       </ul>

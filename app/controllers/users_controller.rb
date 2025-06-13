@@ -4,7 +4,11 @@ class UsersController < ApplicationController
     load_and_authorize_resource
   
     def index
-      @users = User.all
+      if current_user.admin?
+        @users = User.all
+      else
+        redirect_to chats_path, alert: "No tienes permiso para ver esta página."
+      end
     end
   
     def show; end
@@ -34,6 +38,17 @@ class UsersController < ApplicationController
         render :edit
       end
     end
+
+    def destroy
+      @user = User.find(params[:id])
+      if @user == current_user
+        redirect_to users_path, alert: "No puedes eliminarte a ti mismo."
+      else
+        @user.destroy
+        redirect_to users_path, notice: "Usuario eliminado correctamente."
+      end
+    end
+
 
     private
   

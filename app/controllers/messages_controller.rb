@@ -4,8 +4,13 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
+
   def index
-    @messages = Message.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+    if current_user.admin?
+      @messages = Message.all.includes(:sender, :recipient, :chat)
+    else
+      @messages = Message.where("sender_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+    end
   end
 
   def show
@@ -39,6 +44,14 @@ class MessagesController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    @message = Message.find(params[:id])
+    authorize! :destroy, @message
+    @message.destroy
+    redirect_to messages_path, notice: "Chat eliminado"
+  end
+
 
   private
 

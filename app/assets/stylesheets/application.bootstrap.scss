@@ -5,7 +5,7 @@
 :root {
   --splatoon-green: #39FF14;
   --splatoon-pink: #FF1CB9;
-  --splatoon-purple: #7B2CBF;
+  --splatoon-purple: #943dff;
   --splatoon-bg: #1A1A1A;
   --splatoon-text: #FFFFFF;
 }
@@ -52,6 +52,17 @@ body {
 
 .btn-outline-green:hover {
   background-color: var(--splatoon-green);
+  color: white;
+}
+
+.btn-outline-purple {
+  border-color: var(--splatoon-purple);
+  color: var(--splatoon-purple);
+  align-self: center;
+}
+
+.btn-outline-purple:hover {
+  background-color: var(--splatoon-purple);
   color: white;
 }
 

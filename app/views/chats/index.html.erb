@@ -9,8 +9,7 @@
       <thead class="table-dark">
         <tr>
           <th scope="col">Chat ID</th>
-          <th scope="col">Remitente</th>
-          <th scope="col">Receptor</th>
+          <th scope="col">Conversación con</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -19,35 +18,38 @@
           <tr>
             <td><%= chat.id %></td>
             <td>
-              <% if chat.sender.present? %>
-                <%= chat.sender.first_name %> <%= chat.sender.last_name %>
+              <% other = chat.other_user(current_user) %>
+              <% if other.present? %>
+                <%= other.first_name %> <%= other.last_name %>
               <% else %>
-                Usuario <%= chat.sender_id %>
+                Participante desconocido
               <% end %>
             </td>
             <td>
-              <% if chat.receiver.present? %>
-                <%= chat.receiver.first_name %> <%= chat.receiver.last_name %>
-              <% else %>
-                Usuario <%= chat.receiver_id %>
-              <% end %>
-            </td>
-            <td>
+            <div class="d-flex flex-row flex-nowrap gap-2">
               <% if can? :read, chat %>
-                <%= link_to chat_path(chat), class: 'btn btn-outline-primary btn-sm me-2' do %>
+                <%= link_to chat_path(chat), class: 'btn btn-outline-primary btn-sm mt-2' do %>
                   <i class="fas fa-comments"></i> Ver
                 <% end %>
               <% end %>
 
               <% if can? :edit, chat %>
-                <%= link_to edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm' do %>
+                <%= link_to edit_chat_path(chat), class: 'btn btn-outline-secondary btn-sm mt-2' do %>
                   <i class="fas fa-edit"></i> Editar
                 <% end %>
               <% end %>
+
+              <% if can? :destroy, chat %>
+                <%= button_to chat_path(chat), method: :delete, data: { confirm: "¿Estás segura de que quieres borrar este chat?" }, class: 'btn btn-outline-danger btn-sm mt-2' do %>
+                  <i class="fas fa-trash-alt"></i> Eliminar
+                <% end %>
+              <% end %>
+            </div>
             </td>
           </tr>
         <% end %>
       </tbody>
+
     </table>
   </div>
 </div>
